@@ -1,0 +1,4 @@
+name: NoSignEdit
+version: '${project.version}'
+main: dev.beabueno.nosignedit.NoSignEdit
+api-version: '1.20'

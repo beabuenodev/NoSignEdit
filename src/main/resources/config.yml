@@ -1,0 +1,7 @@
+#NoSignEdit plugin
+
+#Database Settings
+db:
+  uri: "jdbc:mysql://localhost:3306?useSSL=false"
+  user: "nosignedit"
+  pw: "password"

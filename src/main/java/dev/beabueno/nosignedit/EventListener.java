@@ -1,5 +1,8 @@
 package dev.beabueno.nosignedit;
 
+import com.destroystokyo.paper.MaterialTags;
+import org.bukkit.ChatColor;
+import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -11,19 +14,26 @@ import java.util.UUID;
 public class EventListener implements Listener {
     @EventHandler
     public void onSignPlace (BlockPlaceEvent e) {
-        NoSignEdit.getPlugin().getData().addSign(e.getBlockPlaced().getLocation(), e.getPlayer().getUniqueId());
+        if (e.getBlock().getState() instanceof Sign) {
+            NoSignEdit.getPlugin().getData().addSign(e.getBlockPlaced().getLocation(), e.getPlayer().getUniqueId());
+        }
     }
 
     @EventHandler
     public void onSignBreak (BlockBreakEvent e) {
-        NoSignEdit.getPlugin().getData().removeSign(e.getBlock().getLocation());
+        if (e.getBlock().getState() instanceof Sign) {
+            NoSignEdit.getPlugin().getData().removeSign(e.getBlock().getLocation());
+        }
     }
 
     @EventHandler
     public void onSignEdit (SignChangeEvent e) {
         UUID signuuid = NoSignEdit.getPlugin().getData().getSignAtLocation(e.getBlock().getLocation());
         UUID playeruuid = e.getPlayer().getUniqueId();
-        if (signuuid != playeruuid)
+        if (signuuid != playeruuid) {
             e.setCancelled(true);
+            e.getPlayer().sendMessage(ChatColor.RED + "¡No puedes editar este cartel!");
+        }
+
     }
 }

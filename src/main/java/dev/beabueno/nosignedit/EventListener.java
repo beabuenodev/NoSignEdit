@@ -1,6 +1,7 @@
 package dev.beabueno.nosignedit;
 
 import com.destroystokyo.paper.MaterialTags;
+import org.bukkit.ChatColor;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,7 +30,10 @@ public class EventListener implements Listener {
     public void onSignEdit (SignChangeEvent e) {
         UUID signuuid = NoSignEdit.getPlugin().getData().getSignAtLocation(e.getBlock().getLocation());
         UUID playeruuid = e.getPlayer().getUniqueId();
-        if (signuuid != playeruuid)
+        if (signuuid != playeruuid) {
             e.setCancelled(true);
+            e.getPlayer().sendMessage(ChatColor.RED + "¡No puedes editar este cartel!");
+        }
+
     }
 }

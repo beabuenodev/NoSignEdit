@@ -13,14 +13,14 @@ import java.util.UUID;
 public class EventListener implements Listener {
     @EventHandler
     public void onSignPlace (BlockPlaceEvent e) {
-        if (e.getBlock() instanceof Sign) {
+        if (e.getBlock().getState() instanceof Sign) {
             NoSignEdit.getPlugin().getData().addSign(e.getBlockPlaced().getLocation(), e.getPlayer().getUniqueId());
         }
     }
 
     @EventHandler
     public void onSignBreak (BlockBreakEvent e) {
-        if (e.getBlock() instanceof Sign) {
+        if (e.getBlock().getState() instanceof Sign) {
             NoSignEdit.getPlugin().getData().removeSign(e.getBlock().getLocation());
         }
     }

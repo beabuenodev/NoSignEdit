@@ -3,6 +3,7 @@ package dev.beabueno.nosignedit;
 import lombok.Getter;
 import lombok.extern.java.Log;
 import org.bukkit.Bukkit;
+import org.bukkit.block.Sign;
 import org.bukkit.plugin.java.JavaPlugin;
 
 @Log
@@ -11,6 +12,7 @@ public final class NoSignEdit extends JavaPlugin {
     @Getter
     private static NoSignEdit plugin = null;
     private static Config config = null;
+    private SignOwnershipManager data;
 
     @Override
     public void onEnable() {
@@ -31,6 +33,8 @@ public final class NoSignEdit extends JavaPlugin {
         }
         log.info(String.format("[NoSignEdit] connected to DB at %s", config.getDatabaseConfig().getUri() ));
 
+        data = new SignOwnershipManager();
+
         // Register listeners
         Bukkit.getPluginManager().registerEvents(new EventListener(), this);
     }
@@ -43,5 +47,13 @@ public final class NoSignEdit extends JavaPlugin {
 
     public static Config getPluginConfig() {
         return NoSignEdit.config;
+    }
+
+    public SignOwnershipManager getData() {
+        return data;
+    }
+
+    public static NoSignEdit getPlugin() {
+        return plugin;
     }
 }
